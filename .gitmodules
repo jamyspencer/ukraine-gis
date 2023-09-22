@@ -1,0 +1,9 @@
+[submodule "api"]
+	path = api
+	url = git@github.com:jamyspencer/ukraine-gis-api.git
+[submodule "db"]
+	path = db
+	url = git@github.com:jamyspencer/ukraine-gis-db.git
+[submodule "frontend"]
+	path = frontend
+	url = git@github.com:jamyspencer/ukraine-gis-frontend.git
