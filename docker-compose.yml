@@ -1,0 +1,13 @@
+services:
+  api:
+    extends:
+      file: ./api/docker-compose.yml
+      service: api
+  db:
+    extends:
+      file: ./db/docker-compose.yml
+      service: db
+
+
+volumes:
+  pgdata:
