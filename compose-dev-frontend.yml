@@ -1,0 +1,15 @@
+services:
+  dev-api:frontend:
+    extends:
+      file: ./api/docker-compose.yml
+      service: api
+  dev-db:frontend:
+    build: db
+    restart: always
+    ports:
+      - "5002:5432"
+    volumes:
+    - pgdata:~/workspace/postgresql/data
+
+volumes:
+  pgdata:

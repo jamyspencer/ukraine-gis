@@ -1,12 +1,32 @@
 services:
-  api:
-    extends:
-      file: ./api/docker-compose.yml
-      service: api
   db:
-    extends:
-      file: ./db/docker-compose.yml
-      service: db
+    build: db
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - "${POSTGRES_PORT}:5432"
+  api:
+    build: api
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_SERVER
+      - POSTGRES_PORT
+      - POSTGRES_DB
+    ports:
+      - "${GIS_API_PORT}:8000"
+  nginx:
+    environment:
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+      - GIS_API_PORT
+      - GIS_API_HOST
+      - GIS_API_SCHEME
+    build: frontend
+    ports:
+      - "8080:80"
 
 
 volumes:
