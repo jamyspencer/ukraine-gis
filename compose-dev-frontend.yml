@@ -1,15 +1,23 @@
 services:
-  dev-api:frontend:
-    extends:
-      file: ./api/docker-compose.yml
-      service: api
-  dev-db:frontend:
+  db:
     build: db
     restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
     ports:
-      - "5002:5432"
-    volumes:
-    - pgdata:~/workspace/postgresql/data
+      - "${POSTGRES_PORT}:5432"
+  api:
+    build: api
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_SERVER
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB
+    ports:
+      - "${GIS_API_PORT}:8000"
 
 volumes:
   pgdata:
